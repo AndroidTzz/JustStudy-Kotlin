@@ -13,7 +13,7 @@ import io.reactivex.disposables.Disposable
  * @date 2019-06-26 13:28
  * @description BaseModel
  */
-class BaseModel : IModel, LifecycleObserver {
+abstract class BaseModel : IModel, LifecycleObserver {
 
     private var mCompositeDisposable: CompositeDisposable? = null
 

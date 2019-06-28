@@ -14,7 +14,7 @@ import org.greenrobot.eventbus.EventBus
  * @date 2019-06-26 13:28
  * @description BasePresenter
  */
-class BasePresenter<M : IModel, V : IView> : IPresenter<V>, LifecycleObserver {
+abstract class BasePresenter<M : IModel, V : IView> : IPresenter<V>, LifecycleObserver {
 
     protected var mView: V? = null
 
@@ -63,7 +63,7 @@ class BasePresenter<M : IModel, V : IView> : IPresenter<V>, LifecycleObserver {
 
     //////////////////////////////////////////// 外部调用 ////////////////////////////////////////////
 
-    open fun createModel(): M? = null
+    abstract fun createModel(): M?
 
     open fun addDisposable(disposable: Disposable?) {
         if (mCompositeDisposable == null) {

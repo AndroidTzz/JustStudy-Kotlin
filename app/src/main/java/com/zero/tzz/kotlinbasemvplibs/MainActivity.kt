@@ -1,19 +1,30 @@
 package com.zero.tzz.kotlinbasemvplibs
 
-import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import com.tzz.kotlin.baselibs.base.BaseMvpActivity
 import com.tzz.kotlin.baselibs.utils.ToastUtil
+import com.zero.tzz.kotlinbasemvplibs.bean.Banner
+import com.zero.tzz.kotlinbasemvplibs.mvp.contract.BannerContract
+import com.zero.tzz.kotlinbasemvplibs.mvp.presenter.BannerPresenter
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseMvpActivity<BannerContract.View, BannerContract.Presenter>(), BannerContract.View {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        var index = 0
+    override fun createPresenter(): BannerContract.Presenter? = BannerPresenter()
+
+    override fun attachLayoutRes(): Int = R.layout.activity_main
+
+    override fun initViewAndData() {
         tv.setOnClickListener {
-            index++
-            ToastUtil.show("啊啊啊啊 $index")
+            mPresenter?.getBanner()
         }
     }
+
+    override fun showBanner(list: MutableList<Banner>?) {
+        tv.text = list?.toString()
+    }
+
+    override fun showErrorMsg(errorMsg: String) {
+        ToastUtil.show(errorMsg)
+    }
+
 }
